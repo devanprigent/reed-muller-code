@@ -1,5 +1,5 @@
 """
-joconde        = plt.imread("C:/Users/prigent/Desktop/TIPE/TIPE MP/Image/joconde.jpg")
+joconde        = plt.imread("data/joconde.jpg")
 joconde_grise    = conversion(joconde)
 joconde_encode   = encodage(joconde_grise)
 joconde_decode0  = decodage(joconde_encode,417,300)

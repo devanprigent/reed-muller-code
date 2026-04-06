@@ -276,28 +276,29 @@ for X in res2:
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
-surfeur          = plt.imread(DATA_DIR / "surfer.jpg")
-surfeur_gris     = to_grayscale_image(surfeur)
+joconde          = plt.imread(DATA_DIR / "joconde.jpg")
+joconde_gris     = to_grayscale_image(joconde)
 
 
 def compute_demo():
-    surfeur_encode = encode_image(surfeur_gris)
-    surfeur_decode0 = decode_image(surfeur_encode,427,640)
+    height, width = np.shape(joconde_gris)
+    joconde_encode = encode_image(joconde_gris)
+    joconde_decode0 = decode_image(joconde_encode, height, width)
 
 
-    surfeur_alt1,l1  = inject_errors(surfeur_gris,100)
-    surfeur_alt2,l2  = inject_errors(surfeur_gris,1000)
+    joconde_alt1,l1  = inject_errors(joconde_gris,100)
+    joconde_alt2,l2  = inject_errors(joconde_gris,1000)
 
-    surfeur_ealt1    = inject_localized_errors(surfeur_encode,l1)
-    surfeur_ealt2    = inject_localized_errors(surfeur_encode,l2)
-
-
-    surfeur_decode1 = decode_image(surfeur_ealt1,427,640)
-    surfeur_decode2 = decode_image(surfeur_ealt2,427,640)
+    joconde_ealt1    = inject_localized_errors(joconde_encode,l1)
+    joconde_ealt2    = inject_localized_errors(joconde_encode,l2)
 
 
-    return [ surfeur_gris    , surfeur_alt1    , surfeur_alt2    ,
-            surfeur_decode0 , surfeur_decode1 , surfeur_decode2 ]
+    joconde_decode1 = decode_image(joconde_ealt1, height, width)
+    joconde_decode2 = decode_image(joconde_ealt2, height, width)
+
+
+    return [ joconde_gris    , joconde_alt1    , joconde_alt2    ,
+            joconde_decode0 , joconde_decode1 , joconde_decode2 ]
 
 
 def display_images(images):
